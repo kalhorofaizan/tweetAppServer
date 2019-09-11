@@ -30,8 +30,8 @@ route.post('/signup', validatesignup, (req, res) => {
 						return res.status(200).json({
 							username: data.username,
 							email: data.email,
-							id: data.id,
-							jwt: token
+							jwt: token,
+							success: true,
 						});
 					});
 				});
@@ -55,7 +55,6 @@ route.post('/signin', validatesignin, (req, res, next) => {
 					return res.status(200).json({
 						username: data.username,
 						email: data.email,
-						id: data.id,
 						jwt: token,
 						success: true
 					});

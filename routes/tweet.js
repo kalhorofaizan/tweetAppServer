@@ -6,11 +6,9 @@ const route = express.Router();
 
 route.post('/send', varifyjwt, (req, res, next) => {
 	users.findOne({ email: req.decode.email }, (err, data) => {
-		console.log(data);
-		console.log(err);
-		console.log(req.decode.email);
 		if (!data) {
-			return res.json({
+			console.log('user not found');
+			return res.status(422).json({
 				success: false,
 				message: 'user not found'
 			});
@@ -32,15 +30,18 @@ route.post('/send', varifyjwt, (req, res, next) => {
 });
 
 route.get('/', varifyjwt, (req, res, next) => {
+	
+	
 	tweet
 		.find({})
 		.sort('-postdate')
-		.skip(30)
-		.limit(10)
+		.skip(0)
+		.limit(0)
 		.exec((err, data) => {
 			res.status(200).json({
 				success: true,
-				data: data
+				data: data,
+				usernmae: req.decode.username
 			});
 		});
 });
